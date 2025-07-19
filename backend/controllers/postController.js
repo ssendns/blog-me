@@ -34,6 +34,7 @@ const getPublishedPosts = async (req, res) => {
       content: post.content,
       createdAt: post.createdAt,
       authorName: post.author?.username || "anon",
+      published: post.published,
     }));
 
     res.json(formattedPosts);
@@ -76,6 +77,7 @@ const getPostById = async (req, res) => {
       content: comment.content,
       createdAt: comment.createdAt,
       authorName: comment.author?.username || comment.authorName || "anon",
+      published: post.published,
     }));
 
     res.json({
@@ -114,7 +116,7 @@ const togglePublish = async (req, res) => {
 const updatePost = async (req, res) => {
   const { id } = req.params;
   const userId = req.user.userId;
-  const { title, content } = req.body;
+  const { title, content, published } = req.body;
 
   const post = await prisma.post.findUnique({ where: { id: Number(id) } });
   if (!post || post.authorId !== userId) {
@@ -123,7 +125,7 @@ const updatePost = async (req, res) => {
 
   const updated = await prisma.post.update({
     where: { id: Number(id) },
-    data: { title, content },
+    data: { title, content, published },
   });
 
   res.json(updated);
@@ -160,6 +162,7 @@ const getMyPosts = async (req, res) => {
       title: post.title,
       content: post.content,
       authorName: post.author?.username || "anon",
+      published: post.published,
     }));
     console.log(formattedPosts);
     res.json(formattedPosts);
