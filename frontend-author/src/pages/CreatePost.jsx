@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/createPost.css";
 
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +36,8 @@ function CreatePost() {
       if (!response.ok) {
         throw new Error(data.error || "failed to create post");
       }
+
+      navigate("/author");
 
       setTitle("");
       setContent("");
