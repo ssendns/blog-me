@@ -7,10 +7,7 @@ import React from "react";
 
 function RouterWrapper() {
   const router = createBrowserRouter([
-    {
-      path: "/posts",
-      element: <Posts />,
-    },
+    { path: "/posts", element: <Posts /> },
     { path: "/posts/:id", element: <Post /> },
     { path: "/sign-up", element: <SignUp /> },
     { path: "/log-in", element: <LogIn /> },
