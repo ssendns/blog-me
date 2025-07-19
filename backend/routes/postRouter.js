@@ -12,6 +12,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post("/", authMiddleware, createPost);
 router.get("/", getPublishedPosts);
+router.get("/public/:id", getPostById);
 router.get("/:id", authMiddleware, getPostById);
 router.patch("/:id/publish", authMiddleware, togglePublish);
 router.put("/:id", authMiddleware, updatePost);
