@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/navbar.css";
 import React from "react";
 
 export default function Navbar({ username }) {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    navigate("/log-in");
+  };
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -13,16 +19,14 @@ export default function Navbar({ username }) {
       </div>
       <div className="navbar-right">
         {username ? (
-          <p className="nav-link">@{username}</p>
-        ) : (
           <>
-            <Link to="/log-in" className="nav-link">
-              log in
-            </Link>
-            <Link to="/sign-up" className="nav-link">
-              sign up
-            </Link>
+            <p className="nav-link">@{username}</p>
+            <p onClick={handleLogout} className="nav-link">
+              log out
+            </p>
           </>
+        ) : (
+          <p className="nav-link">guest</p>
         )}
       </div>
     </nav>
