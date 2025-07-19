@@ -35,7 +35,7 @@ model Comment {
   content    String
   author     User?     @relation("UserComments", fields: [authorId], references: [id])
   authorId   Int?
-  post       Post      @relation("PostComments", fields: [postId], references: [id])
+  post       Post      @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
   postId     Int
   authorName String?
   createdAt  DateTime  @default(now())

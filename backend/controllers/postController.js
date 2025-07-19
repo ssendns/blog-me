@@ -140,6 +140,10 @@ const deletePost = async (req, res) => {
     return res.status(403).json({ error: "not your post" });
   }
 
+  console.log("CURRENT userId:", userId);
+  console.log("POST authorId:", post?.authorId);
+  console.log("POST id:", id);
+
   await prisma.post.delete({ where: { id: Number(id) } });
   res.json({ message: "post deleted" });
 };
