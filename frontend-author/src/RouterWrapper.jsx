@@ -11,6 +11,7 @@ import Post from "./pages/Post";
 import AuthorHome from "./pages/AuthorHome";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
+import Navbar from "./components/Navbar";
 
 function AppWrapper() {
   const location = useLocation();
@@ -31,7 +32,14 @@ function AppWrapper() {
     }
   }, [location, navigate]);
 
-  return <Outlet />;
+  const username = localStorage.getItem("username");
+
+  return (
+    <>
+      <Navbar username={username} />
+      <Outlet />
+    </>
+  );
 }
 
 const router = createBrowserRouter([
