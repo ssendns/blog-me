@@ -7,8 +7,8 @@ import React from "react";
 
 function RouterWrapper() {
   const router = createBrowserRouter([
-    { path: "/posts", element: <Feed /> },
-    { path: "/posts/:id", element: <PostPage /> },
+    { path: "/", element: <Feed /> },
+    { path: "/:id", element: <PostPage /> },
     { path: "/sign-up", element: <SignUp /> },
     { path: "/log-in", element: <LogIn /> },
   ]);
