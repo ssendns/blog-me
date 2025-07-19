@@ -25,8 +25,18 @@ const getPublishedPosts = async (req, res) => {
     const posts = await prisma.post.findMany({
       where: { published: true },
       include: { author: { select: { username: true } } },
+      orderBy: { createdAt: "desc" },
     });
-    res.json(posts);
+
+    const formattedPosts = posts.map((post) => ({
+      id: post.id,
+      title: post.title,
+      content: post.content,
+      createdAt: post.createdAt,
+      authorName: post.author?.username || "anon",
+    }));
+
+    res.json(formattedPosts);
   } catch (err) {
     console.error("error while getting posts:", err);
     res.status(500).json({ error: "failed to get posts" });
