@@ -1,5 +1,33 @@
 const prisma = require("../config/db");
 
+const getCommentsByPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const comments = await prisma.comment.findMany({
+      where: { postId: Number(id) },
+      orderBy: { createdAt: "asc" },
+      include: {
+        author: {
+          select: { username: true },
+        },
+      },
+    });
+
+    const formatted = comments.map((comment) => ({
+      id: comment.id,
+      content: comment.content,
+      createdAt: comment.createdAt,
+      authorName: comment.user?.username || comment.authorName || "anon",
+    }));
+
+    res.json(formatted);
+  } catch (err) {
+    console.error("error getting comments:", err);
+    res.status(500).json({ error: "failed to fetch comments" });
+  }
+};
+
 const addComment = async (req, res) => {
   const { content } = req.body;
   const { id: postId } = req.params;
@@ -68,6 +96,7 @@ const deleteComment = async (req, res) => {
 };
 
 module.exports = {
+  getCommentsByPost,
   addComment,
   updateComment,
   deleteComment,
