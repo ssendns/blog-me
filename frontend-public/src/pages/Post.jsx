@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../assets/post.css";
+import CommentForm from "../components/CommentForm";
+import CommentList from "../components/CommentList";
 
 export default function Post() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const [error, setError] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts/public/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("post not found");
-        return res.json();
-      })
-      .then(setPost)
-      .catch((err) => setError(err.message));
+    async function fetchData() {
+      const postRes = await fetch(`http://localhost:3000/posts/public/${id}`);
+      const postData = await postRes.json();
+      setPost(postData);
+
+      const commentRes = await fetch(
+        `http://localhost:3000/posts/${id}/comments`
+      );
+      const commentData = await commentRes.json();
+      setComments(commentData);
+    }
+
+    fetchData();
   }, [id]);
 
-  if (error) return <p>{error}</p>;
+  const handleNewComment = (newComment) => {
+    setComments((prev) => [...prev, newComment]);
+  };
+
   if (!post) return <p>loading...</p>;
 
   return (
@@ -30,17 +41,8 @@ export default function Post() {
 
       <hr />
       <h2>comments</h2>
-      {post.comments.length === 0 ? (
-        <p>no comments yet</p>
-      ) : (
-        <ul>
-          {post.comments.map((comment) => (
-            <li key={comment.id}>
-              <strong>{comment.authorName}:</strong> {comment.content}
-            </li>
-          ))}
-        </ul>
-      )}
+      <CommentList comments={comments} />
+      <CommentForm postId={id} onCommentAdded={handleNewComment} />
     </div>
   );
 }
