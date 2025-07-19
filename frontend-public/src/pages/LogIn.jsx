@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/auth.css";
+import React from "react";
 
 export default function LogIn() {
   const [username, setUsername] = useState("");

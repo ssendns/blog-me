@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../assets/auth.css";
+import React from "react";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");

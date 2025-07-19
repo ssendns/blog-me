@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../assets/createPost.css";
+import React from "react";
 
 export default function EditPost() {
   const { id } = useParams();

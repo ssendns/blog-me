@@ -1,5 +1,6 @@
 import "../assets/comment.css";
 import Comment from "./Comment";
+import React from "react";
 
 function CommentList({ comments }) {
   if (!comments || comments.length === 0) {

@@ -1,4 +1,5 @@
 import "../assets/post.css";
+import React from "react";
 
 export default function Post({ post, currentUser }) {
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostList from "../components/PostList";
 import "../assets/author.css";
+import React from "react";
 
 export default function AuthorHome() {
   const [user, setUser] = useState(null);

@@ -1,4 +1,5 @@
 import "../assets/postList.css";
+import React from "react";
 
 export default function Post({ post }) {
   const currentUser = localStorage.getItem("username");

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "../assets/post.css";
 import CommentForm from "../components/CommentForm";
 import CommentList from "../components/CommentList";
+import React from "react";
 
 export default function Post() {
   const { id } = useParams();

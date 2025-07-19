@@ -3,6 +3,7 @@ import Posts from "./pages/Posts";
 import Post from "./pages/Post";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
+import React from "react";
 
 function RouterWrapper() {
   const router = createBrowserRouter([

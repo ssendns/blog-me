@@ -1,4 +1,5 @@
 import "../assets/comment.css";
+import React from "react";
 
 export default function Comment({ comment }) {
   return (

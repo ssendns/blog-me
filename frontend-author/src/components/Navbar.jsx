@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../assets/navbar.css";
+import React from "react";
 
 export default function Navbar({ username }) {
   return (
