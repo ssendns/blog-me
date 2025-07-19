@@ -18,7 +18,7 @@ const getCommentsByPost = async (req, res) => {
       id: comment.id,
       content: comment.content,
       createdAt: comment.createdAt,
-      authorName: comment.user?.username || comment.authorName || "anon",
+      authorName: comment.author?.username || comment.authorName || "anon",
     }));
 
     res.json(formatted);
