@@ -142,6 +142,33 @@ const deletePost = async (req, res) => {
   res.json({ message: "post deleted" });
 };
 
+const getMyPosts = async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: { authorId: userId },
+      orderBy: { createdAt: "desc" },
+      include: {
+        author: {
+          select: { username: true },
+        },
+      },
+    });
+    const formattedPosts = posts.map((post) => ({
+      id: post.id,
+      title: post.title,
+      content: post.content,
+      authorName: post.author?.username || "anon",
+    }));
+    console.log(formattedPosts);
+    res.json(formattedPosts);
+  } catch (err) {
+    console.error("error while getting my posts:", err);
+    res.status(500).json({ error: "failed to get my posts" });
+  }
+};
+
 module.exports = {
   createPost,
   getPublishedPosts,
@@ -149,4 +176,5 @@ module.exports = {
   togglePublish,
   updatePost,
   deletePost,
+  getMyPosts,
 };

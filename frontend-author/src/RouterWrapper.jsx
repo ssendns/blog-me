@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { useEffect } from "react";
 import Posts from "./pages/Posts";
+import AuthorHome from "./pages/AuthorHome";
 
 function AppWrapper() {
   const location = useLocation();
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/posts",
         element: <Posts />,
+      },
+      {
+        path: "/author",
+        element: <AuthorHome />,
       },
     ],
   },

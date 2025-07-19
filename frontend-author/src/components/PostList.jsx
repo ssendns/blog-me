@@ -1,16 +1,32 @@
 import { useEffect, useState } from "react";
 import "../assets/postList.css";
 
-export default function PostList() {
+export default function PostList({ showAllForAuthor = false }) {
   const [posts, setPosts] = useState([]);
   const currentUser = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:3000/posts")
+    const endpoint = showAllForAuthor
+      ? "http://localhost:3000/posts/my-posts"
+      : "http://localhost:3000/posts";
+
+    fetch(endpoint, {
+      headers: showAllForAuthor
+        ? { Authorization: `Bearer ${token}` }
+        : undefined,
+    })
       .then((res) => res.json())
-      .then((data) => setPosts(data))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPosts(data);
+        } else {
+          console.error("Expected array, got:", data);
+          setPosts([]);
+        }
+      })
       .catch((err) => console.error("failed to fetch posts:", err));
-  }, []);
+  }, [showAllForAuthor, token]);
 
   return (
     <div className="posts-container">
