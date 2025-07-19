@@ -20,7 +20,9 @@ export default function PostList() {
         <ul>
           {posts.map((post) => (
             <li key={post.id} className="post-card">
-              <h2 className="post-title">{post.title}</h2>
+              <a href={`/posts/${post.id}`}>
+                <strong>{post.title}</strong>
+              </a>
               <p className="post-author">by {post.authorName || "anon"}</p>
               <p className="post-snippet">{post.content.slice(0, 150)}...</p>
             </li>

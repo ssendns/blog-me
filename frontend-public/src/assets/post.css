@@ -1,0 +1,45 @@
+.post-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: sans-serif;
+  color: #1f2937;
+}
+
+.post-page h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-page i {
+  color: #6b7280;
+}
+
+.post-page div {
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.post-page hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.post-page h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.post-page ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.post-page li {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
