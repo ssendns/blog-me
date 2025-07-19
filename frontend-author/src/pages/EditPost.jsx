@@ -55,6 +55,30 @@ export default function EditPost() {
     }
   };
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "are you sure you want to delete this post?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/posts/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("failed to delete post");
+      }
+
+      navigate("/author");
+    } catch (err) {
+      console.error("failed to delete post:", err);
+    }
+  };
+
   return (
     <div className="create-post">
       <h2>edit post</h2>
@@ -81,6 +105,9 @@ export default function EditPost() {
           publish post
         </label>
         <button type="submit">update post</button>
+        <button type="button" className="delete-button" onClick={handleDelete}>
+          delete post
+        </button>
       </form>
     </div>
   );

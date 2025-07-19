@@ -55,3 +55,11 @@
 .create-post button:hover {
   background-color: #0056b3;
 }
+
+.create-post .delete-button {
+  background-color: #ff4d4d;
+}
+
+.create-post .delete-button:hover {
+  background-color: #e63946;
+}
