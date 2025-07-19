@@ -57,3 +57,9 @@
   color: #444;
   line-height: 1.5;
 }
+
+.lock {
+  color: #888;
+  margin-left: 6px;
+  font-size: 0.9em;
+}

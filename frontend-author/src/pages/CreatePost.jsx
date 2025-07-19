@@ -5,6 +5,7 @@ import "../assets/createPost.css";
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [published, setPublished] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ function CreatePost() {
         body: JSON.stringify({
           title,
           content,
-          published: true,
+          published,
         }),
       });
 
@@ -41,6 +42,7 @@ function CreatePost() {
 
       setTitle("");
       setContent("");
+      setPublished(true);
       setError("");
     } catch (err) {
       setError(err.message);
@@ -66,6 +68,15 @@ function CreatePost() {
           onChange={(e) => setContent(e.target.value)}
           required
         />
+
+        <label>
+          <input
+            type="checkbox"
+            checked={published}
+            onChange={(e) => setPublished(e.target.checked)}
+          />
+          publish immediately
+        </label>
 
         {error && <p className="error">{error}</p>}
 
