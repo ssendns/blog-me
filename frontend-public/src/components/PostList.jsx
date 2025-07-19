@@ -14,21 +14,23 @@ export default function PostList() {
   return (
     <div className="posts-container">
       <h1>all posts</h1>
-      {posts.length === 0 ? (
-        <p>no posts yet</p>
-      ) : (
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id} className="post-card">
-              <a href={`/posts/${post.id}`}>
-                <strong>{post.title}</strong>
-              </a>
-              <p className="post-author">by {post.authorName || "anon"}</p>
-              <p className="post-snippet">{post.content.slice(0, 150)}...</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="posts-list">
+        {posts.length === 0 ? (
+          <p>no posts yet</p>
+        ) : (
+          <ul>
+            {posts.map((post) => (
+              <li key={post.id} className="post-card">
+                <a href={`/posts/${post.id}`}>
+                  <strong>{post.title}</strong>
+                </a>
+                <p className="post-author">by {post.authorName || "anon"}</p>
+                <p className="post-snippet">{post.content.slice(0, 150)}...</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

@@ -34,10 +34,10 @@ export default function Post() {
   return (
     <div className="post-page">
       <h1>{post.title}</h1>
-      <p>
+      <p className="post-meta">
         <i>by {post.author || "anon"}</i>
       </p>
-      <div>{post.content}</div>
+      <div className="post-content">{post.content}</div>
 
       <hr />
       <h2>comments</h2>

@@ -42,24 +42,27 @@ function CommentForm({ postId, onCommentAdded }) {
   };
 
   return (
-    <form className="comment-form" onSubmit={handleSubmit}>
-      {!localStorage.getItem("token") && (
-        <input
-          type="text"
-          placeholder="your name"
-          value={authorName}
-          onChange={(e) => setAuthorName(e.target.value)}
+    <div className="comment-form-container">
+      <p>write comment</p>
+      <form className="comment-form" onSubmit={handleSubmit}>
+        {!localStorage.getItem("token") && (
+          <input
+            type="text"
+            placeholder="your name"
+            value={authorName}
+            onChange={(e) => setAuthorName(e.target.value)}
+            required
+          />
+        )}
+        <textarea
+          placeholder="write a comment..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           required
         />
-      )}
-      <textarea
-        placeholder="write a comment..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
-      />
-      <button type="submit">post comment</button>
-    </form>
+        <button type="submit">post comment</button>
+      </form>
+    </div>
   );
 }
 

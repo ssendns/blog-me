@@ -2,7 +2,7 @@ import "../assets/comment.css";
 
 function CommentList({ comments }) {
   if (!comments || comments.length === 0) {
-    return <p className="text-gray-500">no comments yet</p>;
+    return <p className="no-comments-message">no comments yet</p>;
   }
 
   return (

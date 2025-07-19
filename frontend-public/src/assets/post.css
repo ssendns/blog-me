@@ -1,23 +1,30 @@
 .post-page {
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 750px;
+  margin: 2rem auto;
   padding: 2rem;
-  font-family: sans-serif;
   color: #1f2937;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
 }
 
 .post-page h1 {
   font-size: 2rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #111827;
 }
 
-.post-page i {
+.post-meta {
+  font-size: 0.9rem;
   color: #6b7280;
+  margin-bottom: 1rem;
 }
 
-.post-page div {
-  margin-top: 1rem;
-  line-height: 1.6;
+.post-content {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
 }
 
 .post-page hr {
@@ -27,19 +34,8 @@
 }
 
 .post-page h2 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  font-weight: 500;
   margin-bottom: 1rem;
-}
-
-.post-page ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.post-page li {
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 0.75rem;
+  color: #374151;
 }
