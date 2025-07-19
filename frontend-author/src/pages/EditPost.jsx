@@ -50,7 +50,7 @@ export default function EditPost() {
         throw new Error("failed to update post");
       }
 
-      navigate("/author");
+      navigate("/posts");
     } catch (err) {
       console.error("failed to update post:", err);
     }
@@ -74,7 +74,7 @@ export default function EditPost() {
         throw new Error("failed to delete post");
       }
 
-      navigate("/author");
+      navigate("/posts");
     } catch (err) {
       console.error("failed to delete post:", err);
     }

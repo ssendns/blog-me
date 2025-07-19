@@ -5,7 +5,7 @@ import CommentForm from "../components/CommentForm";
 import CommentList from "../components/CommentList";
 import React from "react";
 
-export default function Post() {
+export default function PostPage() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);

@@ -7,9 +7,9 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useEffect } from "react";
-import Posts from "./pages/Posts";
-import Post from "./pages/Post";
-import AuthorHome from "./pages/AuthorHome";
+import Feed from "./pages/Feed";
+import PostPage from "./pages/PostPage";
+import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
 import Navbar from "./components/Navbar";
@@ -49,13 +49,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/posts",
-        element: <Posts />,
+        element: <Feed />,
       },
       {
-        path: "/author",
-        element: <AuthorHome />,
+        path: "/profile",
+        element: <Profile />,
       },
-      { path: "/posts/:id", element: <Post /> },
+      { path: "/posts/:id", element: <PostPage /> },
       {
         path: "/create",
         element: <CreatePost />,

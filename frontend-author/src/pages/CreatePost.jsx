@@ -39,7 +39,7 @@ function CreatePost() {
         throw new Error(data.error || "failed to create post");
       }
 
-      navigate("/author");
+      navigate("/profile");
 
       setTitle("");
       setContent("");

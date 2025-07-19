@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import PostList from "../components/PostList";
 import React from "react";
+import Navbar from "../components/Navbar";
 
-export default function Posts() {
+export default function Feed() {
   const [posts, setPosts] = useState([]);
+  const username = localStorage.getItem("username");
 
   useEffect(() => {
     async function fetchPosts() {
@@ -21,6 +23,7 @@ export default function Posts() {
 
   return (
     <main>
+      <Navbar username={username} />
       <PostList posts={posts} />
     </main>
   );

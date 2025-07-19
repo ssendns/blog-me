@@ -19,7 +19,7 @@ export default function Navbar({ username }) {
       <div className="navbar-right">
         {username ? (
           <>
-            <Link to="/author" className="nav-link">
+            <Link to="/profile" className="nav-link">
               @{username}
             </Link>
             <p onClick={handleLogout} className="nav-link">
@@ -27,7 +27,7 @@ export default function Navbar({ username }) {
             </p>
           </>
         ) : (
-          <Link to="/author" className="nav-link">
+          <Link to="/profile" className="nav-link">
             @my profile
           </Link>
         )}

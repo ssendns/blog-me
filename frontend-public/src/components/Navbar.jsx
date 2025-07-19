@@ -13,9 +13,6 @@ export default function Navbar({ username }) {
     <nav className="navbar">
       <div className="navbar-left">
         <h2>blog-me</h2>
-        <Link to="/posts" className="nav-link">
-          all posts
-        </Link>
       </div>
       <div className="navbar-right">
         {username ? (
@@ -26,7 +23,12 @@ export default function Navbar({ username }) {
             </p>
           </>
         ) : (
-          <p className="nav-link">guest</p>
+          <>
+            <p className="nav-link">@guest</p>
+            <Link to="/log-in" className="nav-link">
+              log in
+            </Link>
+          </>
         )}
       </div>
     </nav>

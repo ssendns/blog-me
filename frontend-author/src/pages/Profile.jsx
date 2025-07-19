@@ -4,7 +4,7 @@ import PostList from "../components/PostList";
 import "../assets/author.css";
 import React from "react";
 
-export default function AuthorHome() {
+export default function Profile() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();

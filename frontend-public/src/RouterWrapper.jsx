@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Posts from "./pages/Posts";
-import Post from "./pages/Post";
+import Feed from "./pages/Feed";
+import PostPage from "./pages/PostPage";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import React from "react";
 
 function RouterWrapper() {
   const router = createBrowserRouter([
-    { path: "/posts", element: <Posts /> },
-    { path: "/posts/:id", element: <Post /> },
+    { path: "/posts", element: <Feed /> },
+    { path: "/posts/:id", element: <PostPage /> },
     { path: "/sign-up", element: <SignUp /> },
     { path: "/log-in", element: <LogIn /> },
   ]);
