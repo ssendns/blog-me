@@ -1,7 +1,7 @@
 const prisma = require("../config/db");
 
 const createPost = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, published } = req.body;
   const userId = req.user.userId;
 
   try {
@@ -9,6 +9,7 @@ const createPost = async (req, res) => {
       data: {
         title,
         content,
+        published,
         authorId: userId,
       },
     });
