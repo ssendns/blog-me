@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostList from "../components/PostList";
 import "../assets/author.css";
-import { useState } from "react";
 
 export default function AuthorHome() {
-  const [user, setUser] = useState([null]);
+  const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
@@ -14,9 +14,7 @@ export default function AuthorHome() {
     async function fetchProfile() {
       try {
         const res = await fetch("http://localhost:3000/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         setUser(data);
@@ -25,7 +23,20 @@ export default function AuthorHome() {
       }
     }
 
+    async function fetchPosts() {
+      try {
+        const res = await fetch("http://localhost:3000/posts/my-posts", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setPosts(data);
+      } catch (err) {
+        console.error("failed to fetch posts:", err);
+      }
+    }
+
     fetchProfile();
+    fetchPosts();
   }, [token]);
 
   const handleCreate = () => {
@@ -39,7 +50,7 @@ export default function AuthorHome() {
         <button onClick={handleCreate}>+ new post</button>
       </div>
       <hr />
-      <PostList showAllForAuthor={true} />
+      <PostList posts={posts} />
     </div>
   );
 }
