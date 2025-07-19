@@ -1,31 +1,39 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const prisma = require("../config/db");
+const dotenv = require("dotenv");
+const AUTHOR_SECRET = process.env.AUTHOR_SECRET_CODE;
 
-const signup = async (req, res) => {
-  const { username, email, password } = req.body;
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) return res.status(400).json({ error: "email already exists" });
+const signUp = async (req, res) => {
+  const { username, password, isAuthor, authorCode } = req.body;
+  const role = isAuthor && authorCode === AUTHOR_SECRET ? "AUTHOR" : "READER";
+
+  if (!username || !password) {
+    return res.status(400).json({ error: "missing fields" });
+  }
+
+  if (isAuthor && authorCode !== AUTHOR_SECRET) {
+    return res.status(403).json({ error: "invalid author code" });
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
   const user = await prisma.user.create({
     data: {
       username,
-      email,
       passwordHash: hashedPassword,
-      role: "READER",
+      role,
     },
   });
 
-  res.status(201).json({
-    message: "user created",
-    user: { id: user.id, email: user.email },
-  });
+  res
+    .status(201)
+    .json({ user: { id: user.id, username: user.username, role: user.role } });
 };
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await prisma.user.findUnique({ where: { email } });
+const logIn = async (req, res) => {
+  const { username, password } = req.body;
+  const user = await prisma.user.findUnique({ where: { username } });
   if (!user) return res.status(400).json({ error: "invalid credentials" });
 
   const valid = await bcrypt.compare(password, user.passwordHash);
@@ -50,7 +58,6 @@ const getProfile = async (req, res) => {
     select: {
       id: true,
       username: true,
-      email: true,
       role: true,
       createdAt: true,
     },
@@ -59,4 +66,4 @@ const getProfile = async (req, res) => {
   res.json(user);
 };
 
-module.exports = { signup, login, getProfile };
+module.exports = { signUp, logIn, getProfile };
