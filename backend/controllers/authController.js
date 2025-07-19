@@ -17,12 +17,10 @@ const signup = async (req, res) => {
     },
   });
 
-  res
-    .status(201)
-    .json({
-      message: "user created",
-      user: { id: user.id, email: user.email },
-    });
+  res.status(201).json({
+    message: "user created",
+    user: { id: user.id, email: user.email },
+  });
 };
 
 const login = async (req, res) => {
@@ -44,4 +42,21 @@ const login = async (req, res) => {
   res.json({ token });
 };
 
-module.exports = { signup, login };
+const getProfile = async (req, res) => {
+  const userId = req.user.userId;
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      role: true,
+      createdAt: true,
+    },
+  });
+
+  res.json(user);
+};
+
+module.exports = { signup, login, getProfile };
