@@ -35,16 +35,52 @@ const getPublishedPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   const { id } = req.params;
 
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
-    include: { author: { select: { username: true } } },
-  });
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id: Number(id) },
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+        comments: {
+          include: {
+            author: {
+              select: {
+                username: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
-  if (!post || (!post.published && post.authorId !== req.user?.userId)) {
-    return res.status(404).json({ error: "post not found" });
+    if (!post || (!post.published && req.user?.userId !== post.authorId)) {
+      return res.status(404).json({ error: "post not found" });
+    }
+
+    const commentsWithNames = post.comments.map((comment) => ({
+      id: comment.id,
+      content: comment.content,
+      createdAt: comment.createdAt,
+      authorName: comment.author?.username || comment.authorName || "anon",
+    }));
+
+    res.json({
+      id: post.id,
+      title: post.title,
+      content: post.content,
+      published: post.published,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+      author: post.author.username,
+      comments: commentsWithNames,
+    });
+  } catch (err) {
+    console.error("error while getting a post:", err);
+    res.status(500).json({ error: "failed to get a post" });
   }
-
-  res.json(post);
 };
 
 const togglePublish = async (req, res) => {
