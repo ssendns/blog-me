@@ -14,7 +14,7 @@ const commentRouter = require("./routes/commentRouter");
 app.use(cors());
 app.use(express.json());
 
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 app.use("/posts", postRouter);
 app.use("/", commentRouter);
 app.get("/users", async (req, res) => {
