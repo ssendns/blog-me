@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/auth.css";
 
@@ -6,6 +6,19 @@ export default function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get("username");
+    const token = params.get("token");
+    const role = params.get("role");
+
+    if (username && token && role) {
+      localStorage.setItem("username", username);
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,9 +35,17 @@ export default function LogIn() {
       const data = await res.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
+      localStorage.setItem("username", data.username);
+      console.log(data);
 
       if (data.role === "AUTHOR") {
-        navigate("/posts");
+        const query = new URLSearchParams({
+          username: data.username,
+          token: data.token,
+          role: data.role,
+        }).toString();
+
+        window.location.href = `http://localhost:5174/posts?${query}`;
       } else {
         navigate("/posts");
       }

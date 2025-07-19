@@ -3,12 +3,13 @@ import "../assets/postList.css";
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
+  const currentUser = localStorage.getItem("username");
 
   useEffect(() => {
     fetch("http://localhost:3000/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data))
-      .catch((err) => console.error("Failed to fetch posts:", err));
+      .catch((err) => console.error("failed to fetch posts:", err));
   }, []);
 
   return (
@@ -26,6 +27,11 @@ export default function PostList() {
                 </a>
                 <p className="post-author">by {post.authorName || "anon"}</p>
                 <p className="post-snippet">{post.content.slice(0, 150)}...</p>
+                {post.authorName === currentUser && (
+                  <a className="edit-link" href={`/edit/${post.id}`}>
+                    edit
+                  </a>
+                )}
               </li>
             ))}
           </ul>
