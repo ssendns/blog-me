@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../assets/auth.css";
 import React from "react";
 
@@ -48,7 +48,7 @@ export default function LogIn() {
 
         window.location.href = `http://localhost:5174/posts?${query}`;
       } else {
-        navigate("/posts");
+        navigate("/");
       }
     } catch (err) {
       console.error("login failed:", err);
@@ -73,6 +73,9 @@ export default function LogIn() {
         required
       />
       <button type="submit">log in</button>
+      <p className="auth-link">
+        do not have an account? <Link to="/sign-up">sign up</Link>
+      </p>
     </form>
   );
 }

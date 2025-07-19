@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../assets/auth.css";
 import React from "react";
 
@@ -63,6 +64,9 @@ export default function SignUp() {
       )}
 
       <button type="submit">sign up</button>
+      <p className="auth-link">
+        already have an account? <Link to="/log-in">log in</Link>
+      </p>
     </form>
   );
 }
