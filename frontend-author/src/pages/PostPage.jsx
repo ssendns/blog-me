@@ -34,11 +34,16 @@ export default function PostPage() {
 
   return (
     <div className="post-page">
-      <h1>{post.title}</h1>
-      <p className="post-meta">
-        <i>by {post.author || "anon"}</i>
-      </p>
-      <div className="post-content">{post.content}</div>
+      <div className="image-container">
+        <img src="/image.png" alt="post" className="post-image" />
+      </div>
+      <div className="post-content">
+        <h1>{post.title}</h1>
+        <p className="post-meta">
+          <i>by {post.author || "anon"}</i>
+        </p>
+        <div className="post-content">{post.content}</div>
+      </div>
 
       <hr />
       <h2>comments</h2>

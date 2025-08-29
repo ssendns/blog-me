@@ -10,12 +10,14 @@ const PORT = process.env.PORT;
 const authRouter = require("./routes/authRouter");
 const postRouter = require("./routes/postRouter");
 const commentRouter = require("./routes/commentRouter");
+const uploadRouter = require("./routes/uploadRouter");
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/", authRouter);
 app.use("/posts", postRouter);
+app.use("/upload", uploadRouter);
 app.use("/", commentRouter);
 app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany();

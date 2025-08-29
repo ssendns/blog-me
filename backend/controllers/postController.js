@@ -1,7 +1,7 @@
 const prisma = require("../config/db");
 
 const createPost = async (req, res) => {
-  const { title, content, published } = req.body;
+  const { title, content, published, imageUrl } = req.body;
   const userId = req.user.userId;
 
   try {
@@ -11,6 +11,7 @@ const createPost = async (req, res) => {
         content,
         published,
         authorId: userId,
+        imageUrl: imageUrl ?? null,
       },
     });
     res.status(201).json(newPost);
@@ -35,6 +36,7 @@ const getPublishedPosts = async (req, res) => {
       createdAt: post.createdAt,
       authorName: post.author?.username || "anon",
       published: post.published,
+      imageUrl: post.imageUrl,
     }));
 
     res.json(formattedPosts);
@@ -88,6 +90,7 @@ const getPostById = async (req, res) => {
       createdAt: post.createdAt,
       updatedAt: post.updatedAt,
       author: post.author.username,
+      imageUrl: post.imageUrl,
       comments: commentsWithNames,
     });
   } catch (err) {
@@ -116,7 +119,7 @@ const togglePublish = async (req, res) => {
 const updatePost = async (req, res) => {
   const { id } = req.params;
   const userId = req.user.userId;
-  const { title, content, published } = req.body;
+  const { title, content, published, imageUrl } = req.body;
 
   const post = await prisma.post.findUnique({ where: { id: Number(id) } });
   if (!post || post.authorId !== userId) {
@@ -125,7 +128,7 @@ const updatePost = async (req, res) => {
 
   const updated = await prisma.post.update({
     where: { id: Number(id) },
-    data: { title, content, published },
+    data: { title, content, published, imageUrl },
   });
 
   res.json(updated);
@@ -167,6 +170,7 @@ const getMyPosts = async (req, res) => {
       content: post.content,
       authorName: post.author?.username || "anon",
       published: post.published,
+      imageUrl: post.imageUrl,
     }));
     console.log(formattedPosts);
     res.json(formattedPosts);
