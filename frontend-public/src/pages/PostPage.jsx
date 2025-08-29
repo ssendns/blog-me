@@ -34,9 +34,14 @@ export default function PostPage() {
 
   return (
     <div className="post-page">
-      <div className="image-container">
-        <img src="/image.png" alt="post" className="post-image" />
-      </div>
+      {post.imageUrl && (
+        <img
+          src={post.imageUrl}
+          alt="post"
+          className="image-container"
+          id="post-image"
+        />
+      )}
       <div className="post-content">
         <h1>{post.title}</h1>
         <p className="post-meta">
