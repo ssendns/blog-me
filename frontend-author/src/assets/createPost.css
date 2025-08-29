@@ -63,3 +63,7 @@
 .create-post .delete-button:hover {
   background-color: #e63946;
 }
+
+.create-post .checkbox {
+  margin-right: 7px;
+}
