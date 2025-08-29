@@ -4,11 +4,20 @@ import React from "react";
 export default function Post({ post }) {
   const currentUser = localStorage.getItem("username");
 
+  const hasImage = !!post.imageUrl?.trim();
+  const maxLength = hasImage ? 100 : 500;
+  const preview =
+    post.content.length > maxLength
+      ? post.content.slice(0, maxLength) + "..."
+      : post.content;
+
   return (
     <li className="post-card">
-      <div className="image-container">
-        <img src="/image.png" alt="post" className="post-image" />
-      </div>
+      {hasImage && (
+        <div className="image-container">
+          <img src={post.imageUrl} alt="post" className="post-image" />
+        </div>
+      )}
       <div className="post-content">
         <div className="post-content-text">
           <a href={`/posts/${post.id}`}>
@@ -17,7 +26,7 @@ export default function Post({ post }) {
             </strong>
           </a>
           <p className="post-author">by {post.authorName || "anon"}</p>
-          <p className="post-snippet">{post.content.slice(0, 500)}</p>
+          <p className="post-snippet">{preview}</p>
         </div>
         <div className="post-content-link">
           {post.authorName === currentUser && (
