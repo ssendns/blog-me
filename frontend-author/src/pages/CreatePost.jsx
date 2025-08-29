@@ -7,6 +7,7 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(true);
+  const [image, setImage] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -20,17 +21,42 @@ function CreatePost() {
     }
 
     try {
+      let imageUrl = "";
+      if (image) {
+        const formData = new FormData();
+        formData.append("file", image);
+
+        const uploadRes = await fetch("http://localhost:3000/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const uploadData = await uploadRes.json();
+
+        if (!uploadRes.ok) {
+          throw new Error(uploadData.message || "image upload failed");
+        }
+
+        imageUrl = uploadData.url;
+      }
+
+      const postData = {
+        title,
+        content,
+        published,
+      };
+
+      if (imageUrl) {
+        postData.imageUrl = imageUrl;
+      }
+
       const response = await fetch("http://localhost:3000/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          title,
-          content,
-          published,
-        }),
+        body: JSON.stringify(postData),
       });
 
       const data = await response.json();
@@ -39,7 +65,7 @@ function CreatePost() {
         throw new Error(data.error || "failed to create post");
       }
 
-      navigate("/profile");
+      navigate(-1);
 
       setTitle("");
       setContent("");
@@ -70,8 +96,16 @@ function CreatePost() {
           required
         />
 
+        <label>cover image:</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+        />
+
         <label>
           <input
+            className="checkbox"
             type="checkbox"
             checked={published}
             onChange={(e) => setPublished(e.target.checked)}

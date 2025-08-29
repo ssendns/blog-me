@@ -10,7 +10,9 @@ export default function EditPost() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [published, setPublished] = useState(false);
+  const [newImage, setNewImage] = useState(null);
 
   useEffect(() => {
     async function fetchPost() {
@@ -25,6 +27,7 @@ export default function EditPost() {
         setTitle(data.title || "");
         setContent(data.content || "");
         setPublished(data.published || false);
+        setImageUrl(data.imageUrl || "");
       } catch (err) {
         console.error("failed to fetch post:", err);
       }
@@ -37,20 +40,49 @@ export default function EditPost() {
     e.preventDefault();
 
     try {
+      let finalImageUrl = imageUrl;
+      if (newImage) {
+        const formData = new FormData();
+        formData.append("file", newImage);
+
+        const uploadRes = await fetch("http://localhost:3000/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const uploadData = await uploadRes.json();
+
+        if (!uploadRes.ok) {
+          throw new Error(uploadData.message || "image upload failed");
+        }
+
+        finalImageUrl = uploadData.url;
+      }
+
+      const postData = {
+        title,
+        content,
+        published,
+      };
+
+      if (imageUrl) {
+        postData.imageUrl = finalImageUrl;
+      }
+
       const res = await fetch(`http://localhost:3000/posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ title, content, published }),
+        body: JSON.stringify(postData),
       });
 
       if (!res.ok) {
         throw new Error("failed to update post");
       }
 
-      navigate("/posts");
+      navigate(-1);
     } catch (err) {
       console.error("failed to update post:", err);
     }
@@ -74,7 +106,7 @@ export default function EditPost() {
         throw new Error("failed to delete post");
       }
 
-      navigate("/posts");
+      navigate(-1);
     } catch (err) {
       console.error("failed to delete post:", err);
     }
@@ -105,6 +137,19 @@ export default function EditPost() {
           />
           publish post
         </label>
+
+        <label>cover image:</label>
+        {imageUrl && (
+          <div className="image-preview">
+            <img src={imageUrl} alt="cover" width="200" />
+          </div>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setNewImage(e.target.files[0])}
+        />
+
         <button type="submit">update post</button>
         <button type="button" className="delete-button" onClick={handleDelete}>
           delete post
