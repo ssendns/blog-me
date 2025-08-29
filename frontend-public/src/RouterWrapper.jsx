@@ -11,6 +11,7 @@ function RouterWrapper() {
     { path: "/:id", element: <PostPage /> },
     { path: "/sign-up", element: <SignUp /> },
     { path: "/log-in", element: <LogIn /> },
+    { path: "/posts/:id", element: <PostPage /> },
   ]);
 
   return <RouterProvider router={router} />;
