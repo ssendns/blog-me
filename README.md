@@ -4,7 +4,14 @@
 
 ## preview
 
-<video src="./frontend-public/public/blogme-preview.mp4" controls width="700" />
+a video preview is available in the frontend-public/public/blogme-preview directory
+
+<p align="center">
+  <img src="./frontend-public/public/post.png" width="400" />
+  <img src="./frontend-public/public/author-page.png" width="400" />
+  <img src="./frontend-public/public/edit-post.png" width="400" />
+  <img src="./frontend-public/public/comments.png" width="400" />
+</p>
 
 ---
 
