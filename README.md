@@ -4,11 +4,11 @@
 
 ## preview
 
-<video src=".frontend-public/public/blogme-preview.mp4" controls width="700" />
+<video src="./frontend-public/public/blogme-preview.mp4" controls width="700" />
 
 ---
 
-## ✨ Features
+## features
 
 - **authentication** with JWT + bcrypt
 - **separate author interface** (React 19 + Vite) to manage posts
