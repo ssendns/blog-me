@@ -4,8 +4,6 @@
 
 ## preview
 
-a video preview is available in the frontend-public/public/blogme-preview directory
-
 <p align="center">
   <img src="./frontend-public/public/post.png" width="400" />
   <img src="./frontend-public/public/author-page.png" width="400" />
