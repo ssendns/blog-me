@@ -1,6 +1,6 @@
 # blog-me
 
-**blog-me** is a blogging platform with two unique experiences: a clean public blog for readers, and a powerful author dashboard for writers. I built **two separate frontends** to ensure better UX for both roles withoun unneccessary functionality.
+**blog-me** is a full-stack blogging platform featuring two distinct user experiences: a clean public blog for readers, and a powerful dashboard for authors. I built two separate frontends to provide a tailored UX for each role, avoiding clutter and keeping each interface purpose-driven.
 
 ## preview
 
@@ -11,8 +11,6 @@
   <img src="./frontend-public/public/comments.png" width="400" />
 </p>
 
----
-
 ## features
 
 - **authentication** with JWT + bcrypt
@@ -21,8 +19,6 @@
 - **comment system** under each post
 - **post visibility** toggle (published/draft)
 - **Prisma ORM + PostgreSQL** for oersistent backend
-
----
 
 ## tech stack
 
@@ -40,25 +36,22 @@
 - React Router
 - Tailwind CSS
 - LocalStorage for token/session
-- Custom components: `PostCard`, `CreatePostForm`, `EditPost`, `CommentList`
-
----
+- Custom components like `PostCard`, `CreatePostForm`, `EditPost`, `CommentList`
 
 ## next steps
 
-- add markdown support for post formatting
-- add search bar and filtering by tag/category
-- like system or emoji-based reactions
-- archive view with calendar-based navigation
-- UI polish — animations, transitions, better empty states
+- support for Markdown in posts
+- tag-based search and filtering
+- emoji-based reactions / like system
+- archive view with calendar navigation
+- UI polish: animations, transitions, improved empty states
 
----
+## what I learned
 
-## what i learned
-
+- designing scalable full-stack apps with clear separation of concerns
 - structuring fullstack apps with clean separation between frontend/backend
-- thinking about UX for different roles (writer vs reader)
+- integrating media uploads and handling cloud storage
 
 ---
 
-i am currently building out my portfolio — learning fast, building fast, and refining my craft every day. if this project speaks to you, feel free to [connect with me](https://github.com/ssendns). i am always open to collaborating on cool, meaningful projects.
+If this project speaks to you, feel free to [connect with me](https://github.com/ssendns). I am always open to collaborating on cool, meaningful projects.
